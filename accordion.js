@@ -23,11 +23,22 @@ accordionBtns.forEach((accordion) => {
 });
  
 function toggleAccordion(){
+   // Close all other accordion tabs
+   accordionBtns.forEach((btn) => {
+    if (btn !== this) {
+      btn.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      const otherContent = btn.nextElementSibling;
+      otherContent.style.maxHeight = null;
+    }
+  });
 
     let content = this.nextElementSibling;
     const isOpen = this.getAttribute("aria-expanded") === "true";
     this.setAttribute("aria-expanded", !isOpen);
     console.log(content);
+    this.classList.toggle("is-open", !isOpen);
+    this.setAttribute("aria-expanded", !isOpen);
 
     if (content.style.maxHeight) {
       //this is if the accordion is open
@@ -38,5 +49,3 @@ function toggleAccordion(){
       console.log(content.style.maxHeight);
     }
   };
-
-
